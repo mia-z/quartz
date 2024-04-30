@@ -25,7 +25,7 @@ Since this is only used for transpiling the scss/sass files, you only want to ru
 ### Configuration
 The settings for the transpiler live in your `appsettings.json` file - ideally `appsettings.Development.json`. A basic example could look like this
 
-```json title="appsettings.Development.json"
+```json {7,11,12} title="appsettings.Development.json"
 {
 	"SassCompiler": {  
 	  "Source": "Styles",  

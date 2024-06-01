@@ -94,21 +94,21 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
 {
 	public override InterceptionResult<int> Savingchanges(DbContextEventData eventData, InterceptionResult<int> result)
 	{
-		if (eventData.Contect is null)
-			return result;
+	   if (eventData.Contect is null)
+		    return result;
 	
-		foreach (var entry in eventData.Context.ChangeTracker.Entries())
-		{
-			if (entry is not { State: EntityState.Deleted, Entity: ISoftDelete entity })
-				continue;
+	    foreach (var entry in eventData.Context.ChangeTracker.Entries())
+	    {
+		    if (entry is not { State: EntityState.Deleted, Entity: ISoftDelete entity })
+		    	continue;
 	
-			entry.State = EntityState.Modified;
-			userToDelete.Entity.IsDeleted = true;
-			userToDelete.Entity.DeletedAt = DateTime.Now;
-		}
+		    entry.State = EntityState.Modified;
+		    userToDelete.Entity.IsDeleted = true;
+		    userToDelete.Entity.DeletedAt = DateTime.Now;
+	    }
 			
-		return result;
-	}
+	    return result;
+    }
 }
 ```
 
@@ -122,7 +122,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	//Code omitted
 	
 	optionsBuilder
-		.AddInterceptors(new SoftDeleteInterceptor());
+	    .AddInterceptors(new SoftDeleteInterceptor());
 }
 ```
 
@@ -139,7 +139,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 	//Code omitted
 	
 	modelBuilder.Entity<User>()
-		.HasQueryFilter(x => x.IsDeleted == false);
+	    .HasQueryFilter(x => x.IsDeleted == false);
 }
 ```
 

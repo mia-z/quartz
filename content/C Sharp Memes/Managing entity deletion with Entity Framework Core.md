@@ -95,7 +95,7 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
 	public override InterceptionResult<int> Savingchanges(DbContextEventData eventData, InterceptionResult<int> result)
 	{
 	   if (eventData.Contect is null)
-		    return result;
+	        return result;
 	
 	    foreach (var entry in eventData.Context.ChangeTracker.Entries())
 	    {
